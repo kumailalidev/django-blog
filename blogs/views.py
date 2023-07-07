@@ -42,6 +42,7 @@ def search(request):
         status="Published",
     )  # , considered as AND operator.
     context = {
+        "keyword": keyword,
         "blogs": blogs,
     }
 
