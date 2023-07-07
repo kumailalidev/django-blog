@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from blogs.models import Blog, Category
 
+from .forms import RegistrationForm
+
 
 def home(request):
     featured_posts = Blog.objects.filter(is_featured=True, status="Published").order_by(
@@ -19,4 +21,9 @@ def home(request):
 
 
 def register(request):
-    return render(request, "register.html")
+    form = RegistrationForm()
+    context = {
+        "form": form,
+    }
+
+    return render(request, "register.html", context)
