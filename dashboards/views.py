@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from .forms import CategoryForm
+from .forms import CategoryForm, BlogPostForm
 from blogs.models import Category, Blog
 from django.contrib.auth.decorators import login_required
 
@@ -60,3 +60,11 @@ def posts(request):
         "posts": posts,
     }
     return render(request, "dashboard/posts.html", context)
+
+
+def add_post(request):
+    form = BlogPostForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "dashboard/add_post.html", context)
