@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import CategoryForm
 from blogs.models import Category, Blog
 from django.contrib.auth.decorators import login_required
 
@@ -16,3 +17,11 @@ def dashboard(request):
 
 def categories(request):
     return render(request, "dashboard/categories.html")
+
+
+def add_category(request):
+    form = CategoryForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "dashboard/add_category.html", context)
