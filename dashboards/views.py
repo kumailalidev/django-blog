@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CategoryForm, BlogPostForm
 from blogs.models import Category, Blog
 from django.contrib.auth.decorators import login_required
+from django.template.defaultfilters import slugify
 
 
 @login_required(login_url="login")
@@ -68,6 +69,11 @@ def add_post(request):
         if form.is_valid():
             post = form.save(commit=False)  # Temp. saving the form
             post.author = request.user
+            post.save()  # Saving blog post so that id is generated
+            title = form.cleaned_data["title"]
+            post.slug = (
+                slugify(title) + "-" + str(post.id)
+            )  # Generating slug based on blog title and blog PK.
             post.save()
             return redirect("posts")
         else:
