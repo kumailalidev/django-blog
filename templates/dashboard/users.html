@@ -6,6 +6,7 @@
     {% include 'dashboard/sidebar.html' %}
     <!-- Right side content -->
     <div class="col-md-9">
+      {% if perms.auth.view_user %}
         <h2>All Users</h2>
         <a href="{% url 'add_user' %}" class="btn btn-dark text-light float-right mb-2">Add User</a>
         <table class="table table-hover">
@@ -58,6 +59,9 @@
             {% endfor %}
             </tbody>
           </table>
+          {% else %}
+          <h5>You do not have permission to view this page</h5>
+          {% endif %}
     </div>
 </div>
 {% endblock %}
