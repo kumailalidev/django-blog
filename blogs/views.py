@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Blog, Category
+from .models import Blog, Category, Comment
 
 
 def posts_by_category(request, category_id):
@@ -27,8 +27,11 @@ def posts_by_category(request, category_id):
 
 def blogs(request, slug):
     single_blog = get_object_or_404(Blog, slug=slug, status="Published")
+    comments = Comment.objects.filter(blog=single_blog)
     context = {
         "single_blog": single_blog,
+        "comments": comments,
+        "comment_count": comments.count(),
     }
     return render(request, "blogs.html", context)
 
