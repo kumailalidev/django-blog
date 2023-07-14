@@ -39,6 +39,17 @@
                     {% else %}
                     No comments yet.
                     {% endif %}
+                    <br>
+                    <div class="form-group">
+                        <!-- if action is left blank, the form will automatically submit to the current url/slug (default behavior) -->
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <textarea class="form-control" name="comment" placeholder="Write your comment"></textarea>
+                                <input class="btn btn-primary mt-2" type="submit" value="submit">
+                            </div>
+                        </form>
+                    </div>
                     </section>
             </article>
         </div>
